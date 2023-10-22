@@ -48,8 +48,12 @@ button:focus-visible {
 }
 .button-dark {
   background-color: #1a1a1a;
+  color: #fff;
 }
 
+.panel {
+  padding: 0 1rem 1rem;
+}
 .panel-light {
   color: #213547;
   background-color: #ffffff;

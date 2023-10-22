@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useTasksDispatch } from "../store/Tasks/TaskContext";
 import { ITask } from "../types";
+import { Button } from "./Button";
 
 export interface TaskProps {
   task: ITask;
@@ -40,14 +41,14 @@ export function Task({ task }: TaskProps) {
           }}
           name={`${task.id}change`}
         />
-        <button onClick={() => setIsEditing(false)}>Save</button>
+        <Button onClick={() => setIsEditing(false)}>Save</Button>
       </>
     );
   } else {
     taskContent = (
       <>
         {task.text}
-        <button onClick={() => setIsEditing(true)}>Edit</button>
+        <Button onClick={() => setIsEditing(true)}>Edit</Button>
       </>
     );
   }
@@ -66,7 +67,7 @@ export function Task({ task }: TaskProps) {
         name={`${task.id}cb`}
       />
       {task.id} {taskContent}
-      <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
+      <Button onClick={() => handleDeleteTask(task.id)}>Delete</Button>
     </label>
   );
 }

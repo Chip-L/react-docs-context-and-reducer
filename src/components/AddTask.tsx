@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTasks, useTasksDispatch } from "../store/Tasks/TaskContext";
+import { Button } from "./Button";
 
 export default function AddTask() {
   const [text, setText] = useState("");
@@ -26,14 +27,14 @@ export default function AddTask() {
         onChange={(e) => setText(e.target.value)}
         name="Add task"
       />
-      <button
+      <Button
         onClick={() => {
           setText("");
           handleAddTask(text);
         }}
       >
         Add
-      </button>
+      </Button>
     </>
   );
 }

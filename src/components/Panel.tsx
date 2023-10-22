@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import useTheme from "../hooks/useTheme.ts";
+import { ReactNode, useContext } from "react";
+import { ThemeContext } from "../store/Theme/ThemeContext.tsx";
 
 export function Panel({
   title,
@@ -8,10 +8,10 @@ export function Panel({
   title: string;
   children: ReactNode;
 }) {
-  const { theme } = useTheme();
+  const { theme } = useContext(ThemeContext);
   const className = "panel-" + theme;
   return (
-    <section className={className}>
+    <section className={`panel ${className}`}>
       <h1>{title}</h1>
       {children}
     </section>

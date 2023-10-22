@@ -1,7 +1,8 @@
-import useTheme from "../hooks/useTheme";
+import { useContext } from "react";
+import { ThemeContext } from "../store/Theme/ThemeContext";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme } = useContext(ThemeContext);
 
   return (
     <label>

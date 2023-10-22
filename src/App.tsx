@@ -1,13 +1,16 @@
-import { TasksProvider } from "./store/Tasks/TasksProvider";
 import AddTask from "./components/AddTask";
-import TaskList from "./components/TaskList";
-import { ThemeContextProvider } from "./store/Theme/ThemeContext";
-import { ThemeToggle } from "./components/ThemeToggle";
 import { Panel } from "./components/Panel";
+import TaskList from "./components/TaskList";
+import { ThemeToggle } from "./components/ThemeToggle";
+import useTheme from "./hooks/useTheme";
+import { TasksProvider } from "./store/Tasks/TasksProvider";
+import { ThemeContext } from "./store/Theme/ThemeContext";
 
 export default function TaskApp() {
+  const theme = useTheme("light");
+
   return (
-    <ThemeContextProvider>
+    <ThemeContext.Provider value={theme}>
       <TasksProvider>
         <Panel title="Day off in Kyoto">
           <AddTask />
@@ -15,6 +18,6 @@ export default function TaskApp() {
         </Panel>
         <ThemeToggle />
       </TasksProvider>
-    </ThemeContextProvider>
+    </ThemeContext.Provider>
   );
 }
