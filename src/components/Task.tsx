@@ -1,6 +1,6 @@
+import { useTasksDispatch } from "@store/Tasks";
+import { ITask } from "@types";
 import { useState } from "react";
-import { useTasksDispatch } from "../store/Tasks/TaskContext";
-import { ITask } from "../types";
 import { Button } from "./Button";
 
 export interface TaskProps {

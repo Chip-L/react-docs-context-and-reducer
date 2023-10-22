@@ -1,7 +1,7 @@
-import { useTasks } from "../store/Tasks/TaskContext";
+import { useTasks } from "@store/Tasks";
 import { Task } from "./Task";
 
-export default function TaskList() {
+export function TaskList() {
   const tasks = useTasks();
 
   return (

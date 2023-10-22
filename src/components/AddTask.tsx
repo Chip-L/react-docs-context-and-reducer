@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useTasks, useTasksDispatch } from "../store/Tasks/TaskContext";
 import { Button } from "./Button";
+import { useTasks, useTasksDispatch } from "@store/Tasks";
 
-export default function AddTask() {
+export function AddTask() {
   const [text, setText] = useState("");
   const dispatch = useTasksDispatch();
   const tasks = useTasks();

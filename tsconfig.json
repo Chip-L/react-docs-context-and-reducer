@@ -19,7 +19,15 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    /* Paths -- requires VSCode restart after update */
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": ["./components/*"],
+      "@store/*": ["./store/*"],
+      "@types": ["./types"]
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
