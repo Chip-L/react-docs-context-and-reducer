@@ -5,7 +5,7 @@ import { ThemeToggle } from "@components/ThemeToggle";
 import { TasksProvider } from "@store/Tasks";
 import { ThemeContextProvider } from "@store/Theme";
 
-export default function TaskApp() {
+export default function App() {
   return (
     <ThemeContextProvider>
       <TasksProvider>
