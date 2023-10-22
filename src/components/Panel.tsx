@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { useTheme } from "../hooks/useTheme.ts";
+import { useTheme } from "../store/Theme";
 
 export function Panel({
   title,

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Theme, ThemeContext } from "../types";
+import { Theme, ThemeContext } from "../../types";
 
 const useThemeContext = (initialTheme?: Theme): ThemeContext => {
   const [theme, setThemeState] = useState<Theme>(initialTheme ?? "light");
