@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import { ITask } from "../types";
+import { ITask } from "../../types";
 import { TaskReducerActions } from "./tasksReducer";
 
 export const TasksContext = createContext<ITask[]>([]);

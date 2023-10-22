@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useTasksDispatch } from "../store/TaskContext";
+import { useTasksDispatch } from "../store/Tasks/TaskContext";
 import { ITask } from "../types";
 
 export interface TaskProps {
