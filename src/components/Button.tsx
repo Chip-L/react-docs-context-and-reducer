@@ -1,5 +1,5 @@
-import { ReactNode, useContext } from "react";
-import { ThemeContext } from "../store/Theme/ThemeContext.tsx";
+import { ReactNode } from "react";
+import { useTheme } from "../hooks/useTheme.ts";
 
 interface ButtonProps {
   onClick: () => void;
@@ -7,7 +7,7 @@ interface ButtonProps {
 }
 
 export function Button({ onClick, children }: ButtonProps) {
-  const { theme } = useContext(ThemeContext);
+  const { theme } = useTheme();
   const className = "button-" + theme;
 
   return (

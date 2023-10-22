@@ -1,5 +1,5 @@
 import { PropsWithChildren, createContext } from "react";
-import useTheme from "../../hooks/useTheme.ts";
+import useThemeContext from "../../hooks/useThemeContext.ts";
 import { ThemeContext as ThemeContextType } from "../../types/ThemeContext.tsx";
 
 const noop = (..._args: any[]) => {};
