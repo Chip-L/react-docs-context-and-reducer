@@ -1,14 +1,18 @@
-import { ButtonHTMLAttributes, ReactNode, useContext } from "react";
+import { ReactNode, useContext } from "react";
 import { ThemeContext } from "../store/Theme/ThemeContext.tsx";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
+interface ButtonProps {
+  onClick: () => void;
+  children?: ReactNode;
 }
 
-export function Button({ children }: ButtonProps) {
+export function Button({ onClick, children }: ButtonProps) {
   const { theme } = useContext(ThemeContext);
   const className = "button-" + theme;
 
-  console.log({ className });
-  return <button className={className}>{children}</button>;
+  return (
+    <button className={className} onClick={onClick}>
+      {children}
+    </button>
+  );
 }
