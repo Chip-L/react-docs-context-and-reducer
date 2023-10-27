@@ -1,8 +1,8 @@
-import { DirectoryList, FileType } from "@types";
+import { DirectoryList, DBFile } from "@types";
 
 type MatchedFile = {
   matched: boolean;
-  obj: FileType | undefined;
+  obj: DBFile | undefined;
 };
 
 function getFileFromList(id: string, fileList: DirectoryList): MatchedFile {
@@ -34,7 +34,7 @@ function getFileFromList(id: string, fileList: DirectoryList): MatchedFile {
 export function getFileFromDirectoryList(
   id: string,
   fileList: DirectoryList
-): FileType | undefined {
+): DBFile | undefined {
   const match = getFileFromList(id, fileList);
 
   if (!match.matched) {

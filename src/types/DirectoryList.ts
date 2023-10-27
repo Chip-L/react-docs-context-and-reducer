@@ -1,10 +1,11 @@
 export type FileTypes = "docx" | "xlsx" | "json";
 
-export type FileType = {
-  name: string;
+export type DBFile = {
   id: string;
+  absolute_path: string;
+  file_name: string;
+  file_extension: FileTypes;
   content?: string;
-  type?: FileTypes;
 };
 
 export type DirectoryType = {
@@ -13,4 +14,4 @@ export type DirectoryType = {
   children: DirectoryList;
 };
 
-export type DirectoryList = (FileType | DirectoryType)[];
+export type DirectoryList = (DBFile | DirectoryType)[];

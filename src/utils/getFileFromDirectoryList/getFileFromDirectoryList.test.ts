@@ -1,11 +1,36 @@
-import { DirectoryList, DirectoryType, FileType } from "@types";
+import { DirectoryList, DirectoryType, DBFile } from "@types";
 import { getFileFromDirectoryList } from "./getFileFromDirectoryList";
 
-const level0file0: FileType = { name: "level 0 file 0", id: "file0-0" };
-const level0file1: FileType = { name: "level 0 file 1", id: "file0-1" };
-const level1file0: FileType = { name: "level 1 file 0", id: "file1-0" };
-const level1file1: FileType = { name: "level 1 file 1", id: "file1-1" };
-const level2file0: FileType = { name: "level 2 file 0", id: "file2-0" };
+const level0file0: DBFile = {
+  id: "file0-0",
+  absolute_path: "",
+  file_name: "level 0 file 0",
+  file_extension: "docx",
+};
+const level0file1: DBFile = {
+  id: "file0-1",
+  absolute_path: "",
+  file_name: "level 0 file 1",
+  file_extension: "docx",
+};
+const level1file0: DBFile = {
+  id: "file1-0",
+  absolute_path: "",
+  file_name: "level 1 file 0",
+  file_extension: "docx",
+};
+const level1file1: DBFile = {
+  id: "file1-1",
+  absolute_path: "",
+  file_name: "level 1 file 1",
+  file_extension: "docx",
+};
+const level2file0: DBFile = {
+  id: "file2-0",
+  absolute_path: "",
+  file_name: "level 2 file 0",
+  file_extension: "docx",
+};
 
 const level0directory0: DirectoryType = {
   name: "level 0 directory 0",
