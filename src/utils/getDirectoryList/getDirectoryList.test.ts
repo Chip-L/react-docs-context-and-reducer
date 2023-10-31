@@ -1,17 +1,54 @@
 import { DBFile, DirectoryType } from "@types";
 import { getDirectoryList } from ".";
 
-const demoFile0: DBFile = {
+/*
+  This should return a directory structure of the following:
+    dir-0
+    + dir-1
+    +-+ dir2
+    | | | file-0.docx
+    | | | file-1.xlsx
+    | | file-2.json
+    | file-3.docx
+    + dir-3
+    | file-4.docx
+    file-5.docx
+*/
+
+const file0: DBFile = {
   id: "id0",
-  absolute_path: "path1",
-  file_name: "test-0",
+  absolute_path: "dir-0/dir-1/dir-2",
+  file_name: "file-0",
   file_extension: "docx",
 };
-
-const demoFile1: DBFile = {
+const file1: DBFile = {
   id: "id1",
-  absolute_path: "path1/path2",
-  file_name: "test-1",
+  absolute_path: "dir-0/dir-1/dir-2",
+  file_name: "file-1",
+  file_extension: "xlsx",
+};
+const file2: DBFile = {
+  id: "id2",
+  absolute_path: "dir-0/dir-1",
+  file_name: "file-2",
+  file_extension: "json",
+};
+const file3: DBFile = {
+  id: "id3",
+  absolute_path: "dir-0",
+  file_name: "file-3",
+  file_extension: "docx",
+};
+const file4: DBFile = {
+  id: "id4",
+  absolute_path: "dir-3",
+  file_name: "file-4",
+  file_extension: "docx",
+};
+const file5: DBFile = {
+  id: "id5",
+  absolute_path: "",
+  file_name: "file-5",
   file_extension: "docx",
 };
 
@@ -23,62 +60,96 @@ describe("getDirectoryList", () => {
   });
 
   it("returns a file if no absolute_path", () => {
-    const file0 = { ...demoFile0, absolute_path: "" };
-    const result = getDirectoryList([file0]);
+    const result = getDirectoryList([file5]);
 
-    expect(result).toEqual([file0]);
+    expect(result).toEqual([file5]);
   });
 
-  it("returns a directory with absolute_path", () => {
-    const path = "path-0";
-    const file0: DBFile = { ...demoFile0, absolute_path: path };
+  it("throws an error if there is a missing directory name", () => {
+    const file: DBFile = { ...file0, absolute_path: "dir-0//dir-2" };
+
+    const errorMessage = `Unknown directory name: id: ${file.id}, absolutePath: ${file.absolute_path}.`;
+    expect(() => getDirectoryList([file])).toThrowError(errorMessage);
+  });
+
+  it("returns subdirectories with an absolute_path", () => {
     const result = getDirectoryList([file0]);
 
     const directory: DirectoryType = {
-      id: path,
-      name: path,
-      children: [file0],
+      id: "dir-0",
+      name: "dir-0",
+      children: [
+        {
+          id: "dir-0/dir-1",
+          name: "dir-1",
+          children: [
+            {
+              id: "dir-0/dir-1/dir-2",
+              name: "dir-2",
+              children: [file0],
+            },
+          ],
+        },
+      ],
     };
+
     expect(result).toEqual([directory]);
   });
 
   it("returns multiple files in path if they have the same path", () => {
-    const path = "path-0";
-    const file0: DBFile = { ...demoFile0, absolute_path: path };
-    const file1: DBFile = { ...demoFile1, absolute_path: path };
     const result = getDirectoryList([file0, file1]);
 
     const directory: DirectoryType = {
-      id: path,
-      name: path,
-      children: [file0, file1],
+      id: "dir-0",
+      name: "dir-0",
+      children: [
+        {
+          id: "dir-0/dir-1",
+          name: "dir-1",
+          children: [
+            {
+              id: "dir-0/dir-1/dir-2",
+              name: "dir-2",
+              children: [file0, file1],
+            },
+          ],
+        },
+      ],
     };
+
+    // console.log(JSON.stringify(result, undefined, 2));
+
     expect(result).toEqual([directory]);
   });
 
-  it("returns subdirectories if multiple paths in absolute_path", () => {
-    const path = "path-0/path-1";
-    const file0: DBFile = { ...demoFile0, absolute_path: path };
-    const result = getDirectoryList([file0]);
+  it("returns complex path of multiple levels", () => {
+    const result = getDirectoryList([file0, file1, file2, file3, file4, file5]);
 
-    const dir2: DirectoryType = {
-      id: path,
-      name: "path-1",
-      children: [file0],
+    const directory0: DirectoryType = {
+      id: "dir-0",
+      name: "dir-0",
+      children: [
+        {
+          id: "dir-0/dir-1",
+          name: "dir-1",
+          children: [
+            {
+              id: "dir-0/dir-1/dir-2",
+              name: "dir-2",
+              children: [file0, file1],
+            },
+            file2,
+          ],
+        },
+        file3,
+      ],
     };
-    const dir1: DirectoryType = {
-      id: "path-0",
-      name: "path-0",
-      children: [dir2],
+    const directory3: DirectoryType = {
+      id: "dir-3",
+      name: "dir-3",
+      children: [file4],
     };
-    expect(result).toEqual([dir1]);
-  });
 
-  it("throws an error if there is a missing directory name", () => {
-    const path = "path-0//path-2";
-    const file0: DBFile = { ...demoFile0, absolute_path: path };
-
-    const errorMessage = `Unknown directory name: id: ${file0.id}, absolutePath: ${file0.absolute_path}.`;
-    expect(() => getDirectoryList([file0])).toThrowError(errorMessage);
+    expect(result).toEqual([directory0, directory3, file5]);
   });
 });

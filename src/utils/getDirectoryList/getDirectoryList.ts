@@ -14,26 +14,53 @@ export function getDirectoryList(fileList: DBFile[]): DirectoryList {
   const dirList: DirectoryList = [];
 
   for (const file of fileList) {
-    const paths = file.absolute_path.split("/");
-    let lastItem: DBFile | DirectoryType = file;
+    const { pushTo, lastPath, remainingPaths } = findSubDirectory(
+      file.absolute_path,
+      dirList
+    );
+    pushTo.push(getNewDirectoryList(remainingPaths, lastPath, file));
+  }
 
-    for (let level = paths.length; level >= 0; level--) {
-      const pathToDir = paths.join("/");
-      const index = dirList.findIndex((dir) => dir.id === pathToDir);
+  return dirList;
+}
+
+function findSubDirectory(path: string, pushTo: DirectoryList) {
+  const paths = path.split("/");
+  let lastPath = "";
+  let remainingPaths = paths.join("/");
+
+  for (let level = 0; level < paths.length; level++) {
+    const currentPath = paths.slice(0, level + 1).join("/");
+    const index = pushTo.findIndex((dir) => dir.id === currentPath);
+
+    if (index > -1) {
+      lastPath = currentPath;
+      remainingPaths = paths.slice(level + 1).join("/");
+
+      const dir = pushTo[index];
+      if ("children" in dir) {
+        pushTo = dir.children;
+      }
+    } else {
+      break;
+    }
+  }
+
+  return { lastPath, remainingPaths, pushTo };
+}
+
+function getNewDirectoryList(
+  remainingPath: string,
+  currentPath: string,
+  file: DBFile
+): DBFile | DirectoryType {
+  let lastItem: DBFile | DirectoryType = file;
+  const paths = remainingPath.split("/");
+
+  if (paths[0]) {
+    for (let level = paths.length; level > 0; level--) {
+      const pathToDir = joinPaths(currentPath, paths);
       const pathName = paths.pop();
-
-      if (pathToDir === "") {
-        dirList.push(lastItem);
-        break;
-      }
-
-      if (index > -1) {
-        const dir = dirList[index];
-        if ("children" in dir) {
-          dir.children.push(lastItem);
-        }
-        break;
-      }
 
       if (pathName) {
         const newDir: DirectoryType = {
@@ -49,11 +76,15 @@ export function getDirectoryList(fileList: DBFile[]): DirectoryList {
       }
     }
   }
-
-  return dirList;
+  return lastItem;
 }
 
-// function getDirectory(path: string, pushItem: DBFile|DirectoryType):DirectoryType {
-//   const newDir
-//   return
-// }
+function joinPaths(firstPart: string, secondPart: string[]) {
+  if (firstPart === "") {
+    return secondPart.join("/");
+  }
+
+  const currentPaths = firstPart.split("/");
+  const fullPath = currentPaths.concat(secondPart);
+  return fullPath.join("/");
+}
