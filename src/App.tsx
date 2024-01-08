@@ -1,20 +1,19 @@
-import { AddTask } from "@components/AddTask";
-import { Panel } from "@components/Panel";
-import { TaskList } from "@components/TaskList";
+import { Page } from "@components/Page";
 import { ThemeToggle } from "@components/ThemeToggle";
+import "@patternfly/react-core/dist/styles/base.css";
+import { TabsContextProvider } from "@store/Tabs";
 import { TasksProvider } from "@store/Tasks";
 import { ThemeContextProvider } from "@store/Theme";
 
 export default function App() {
   return (
     <ThemeContextProvider>
-      <TasksProvider>
-        <Panel title="Day off in Kyoto">
-          <AddTask />
-          <TaskList />
-        </Panel>
-        <ThemeToggle />
-      </TasksProvider>
+      <TabsContextProvider>
+        <TasksProvider>
+          <Page />
+          <ThemeToggle />
+        </TasksProvider>
+      </TabsContextProvider>
     </ThemeContextProvider>
   );
 }
