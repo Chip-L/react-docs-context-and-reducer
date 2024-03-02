@@ -1,5 +1,4 @@
 import { Page } from "@components/Page";
-import { ThemeToggle } from "@components/ThemeToggle";
 import "@patternfly/react-core/dist/styles/base.css";
 import { TabsContextProvider } from "@store/Tabs";
 import { TasksProvider } from "@store/Tasks";
@@ -11,7 +10,6 @@ export default function App() {
       <TabsContextProvider>
         <TasksProvider>
           <Page />
-          <ThemeToggle />
         </TasksProvider>
       </TabsContextProvider>
     </ThemeContextProvider>
